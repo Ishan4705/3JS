@@ -1,6 +1,9 @@
 import './style.css'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
+import Stats from 'three/addons/libs/stats.module.js' 
+// Import Stats not using curly braces
+// as it is a default export
 
 const scene = new THREE.Scene()
 
@@ -25,12 +28,17 @@ const material = new THREE.MeshNormalMaterial({ wireframe: true })
 const cube = new THREE.Mesh(geometry, material)
 scene.add(cube)
 
+const stats = new Stats()
+document.body.appendChild(stats.dom)
+
 function animate() {
   requestAnimationFrame(animate)
-
+  // we can add stats beginaning and end markers to measure specific code blocks
+  // stats.begin()
   // cube.rotation.x += 0.01
   // cube.rotation.y += 0.01
-
+  // stats.end()
+  stats.update()
   renderer.render(scene, camera)
 }
 
