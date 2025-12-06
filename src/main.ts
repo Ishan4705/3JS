@@ -4,6 +4,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import Stats from 'three/addons/libs/stats.module.js' 
 // Import Stats not using curly braces
 // as it is a default export
+import {GUI} from 'dat.gui'
 
 const scene = new THREE.Scene()
 
@@ -30,6 +31,20 @@ scene.add(cube)
 
 const stats = new Stats()
 document.body.appendChild(stats.dom)
+
+const gui = new GUI()
+const cubeFolder = gui.addFolder('Cube')
+// Add rotation controls for the cube
+cubeFolder.add(cube.rotation, 'x', 0, Math.PI * 2, 0.01).name('Rotate X')
+cubeFolder.add(cube.rotation, 'y', 0, Math.PI * 2, 0.01).name('Rotate Y')
+cubeFolder.add(cube.rotation, 'z', 0, Math.PI * 2, 0.01).name('Rotate Z')
+cubeFolder.open()
+const cameraFolder = gui.addFolder('Camera')
+// Add position controls for the camera
+cameraFolder.add(camera.position, 'x', -5, 5, 0.1).name('Position X')
+cameraFolder.add(camera.position, 'y', -5, 5, 0.1).name('Position Y')
+cameraFolder.add(camera.position, 'z', -5, 5, 0.1).name('Position Z')
+cameraFolder.open()
 
 function animate() {
   requestAnimationFrame(animate)
