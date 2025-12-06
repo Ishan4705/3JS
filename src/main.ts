@@ -7,6 +7,16 @@ import Stats from 'three/addons/libs/stats.module.js'
 import {GUI} from 'dat.gui'
 
 const scene = new THREE.Scene()
+// to set a background color
+scene.background = new THREE.Color(0x222222)
+// to set a background texture
+scene.background=new THREE.TextureLoader().load('https://threejs.org/examples/textures/uv_grid_opengl.jpg');
+scene.background = new THREE.CubeTextureLoader()
+// you can use your own images here
+.setPath('https://sbcode.net/img/')
+// px=positive x, nx=negative x, ny=negative y, py=positive y, pz=positive z, nz=negative z
+.load(['px.png', 'nx.png', 'py.png', 'ny.png', 'pz.png', 'nz.png'])
+scene.backgroundBlurriness = 0.5; // value between 0 and 1
 
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
 camera.position.z = 1.5
@@ -26,6 +36,8 @@ new OrbitControls(camera, renderer.domElement)
 const geometry = new THREE.BoxGeometry()
 const material = new THREE.MeshNormalMaterial({ wireframe: true })
 
+// if you have multiple scenes, you can set the background for each scene individually but you cannot share a single
+// object like a texture or cube texture between multiple scenes 
 const cube = new THREE.Mesh(geometry, material)
 scene.add(cube)
 
